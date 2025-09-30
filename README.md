@@ -12,8 +12,8 @@ Este proyecto es una prueba técnica que combina **Angular** en el frontend con 
 3. Límite máximo de **15 caracteres** en el nombre.
 4. Reconocimiento de voz utilizando la **Web Speech API**.
 5. Servicio backend en NodeJS que encripta el texto con **RSA/ECB/PKCS1Padding**.
-6. Opcional: desencriptación para validar el resultado. (comento en el html)
-7. Indicador visual de estado: escuchando, detenido o error. (comentao en el html)
+6. Opcional: desencriptación para validar el resultado. (comentado en el html)
+7. Indicador visual de estado: escuchando, detenido o error. (comentado en el html)
 
 ---
 
