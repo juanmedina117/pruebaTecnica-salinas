@@ -31,7 +31,7 @@ Este proyecto es una prueba técnica que combina **Angular** en el frontend con 
 ### Backend
 
 1. Clonar el proyecto ``` https://github.com/juanmedina117/pruebaTecnica-salinas.git ```
-2. Acceder a las carpetas fronten y backend
+2. Acceder a las carpetas frontend y backend
 3. Dentro de backend en consola escribir ```node index.js``` y dar enter.
 4. Dentro de frontend en consola escribir ``` ng serve -o ``` y dar enter.
 
