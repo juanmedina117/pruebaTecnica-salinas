@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/juanmedina117/pruebaTecnica-salinas#readme",
+  "bugs": {
+    "url": "https://github.com/juanmedina117/pruebaTecnica-salinas/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juanmedina117/pruebaTecnica-salinas.git"
+  },
+  "license": "ISC",
+  "author": "Juan Manuel Lule Medina",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
