@@ -16,35 +16,40 @@ const privateKey = fs.readFileSync("../server/keys/private.pem", "utf8");
 
 // Servicio para encriptar texto
 app.post("/api/encrypt", (req, res) => {
-  const { text } = req.body;
-  if (!text) return res.status(400).json({ error: "Text is required" });
-
   try {
-    const buffer = Buffer.from(text, "utf8");
-    const encrypted = crypto.publicEncrypt(
-      { key: publicKey, padding: crypto.constants.RSA_PKCS1_PADDING },
-      buffer
+    const { text } = req.body;
+    const encryptedBuffer = crypto.publicEncrypt(
+      {
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        oaepHash: 'sha256'
+      },
+      Buffer.from(text, 'utf-8')
     );
-    res.json({ encrypted: encrypted.toString("base64") });
+
+    res.json({ encrypted: encryptedBuffer.toString('base64') });
   } catch (err) {
-    res.status(500).json({ error: "Encryption failed" });
+    res.status(500).json({ error: err.message });
   }
 });
 
 // Servicio para desencriptar (para pruebas)
 app.post("/api/decrypt", (req, res) => {
-  const { encrypted } = req.body;
-  if (!encrypted) return res.status(400).json({ error: "Encrypted text required" });
-
-  try {
-    const buffer = Buffer.from(encrypted, "base64");
+   try {
+    const { encrypted } = req.body;
+    const buffer = Buffer.from(encrypted, 'base64');
     const decrypted = crypto.privateDecrypt(
-      { key: privateKey, padding: crypto.constants.RSA_PKCS1_PADDING },
+      {
+        key: privateKey,
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+        oaepHash: 'sha256'
+      },
       buffer
     );
-    res.json({ text: decrypted.toString("utf8") });
+
+    res.json({ decrypted: decrypted.toString('utf-8') });
   } catch (err) {
-    res.status(500).json({ error: "Decryption failed" });
+    res.status(500).json({ error: err.message });
   }
 });
 
