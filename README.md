@@ -8,19 +8,19 @@ Este proyecto es una prueba técnica que combina **Angular** en el frontend con 
 ## 🔹 Funcionalidades
 
 1. Input de texto **solo lectura** que se llena en tiempo real mientras el usuario habla.
-2. Filtrado de caracteres para permitir únicamente **alfanuméricos** (opcional: espacios).
+2. Filtrado de caracteres para permitir únicamente **alfanuméricos**.
 3. Límite máximo de **15 caracteres** en el nombre.
 4. Reconocimiento de voz utilizando la **Web Speech API**.
 5. Servicio backend en NodeJS que encripta el texto con **RSA/ECB/PKCS1Padding**.
-6. Opcional: desencriptación para validar el resultado.
-7. Indicador visual de estado: escuchando, detenido o error.
+6. Opcional: desencriptación para validar el resultado. (comento en el html)
+7. Indicador visual de estado: escuchando, detenido o error. (comentao en el html)
 
 ---
 
 ## 🔹 Tecnologías
 
-- **Frontend:** Angular 15+  
-- **Backend:** NodeJS 18+ con Express  
+- **Frontend:** Angular v20.2.0
+- **Backend:** NodeJS v22.17.0 con Express  
 - **Encriptación:** Crypto (NodeJS) con RSA PKCS1Padding  
 - **Reconocimiento de voz:** Web Speech API (Chrome recomendado)  
 
