@@ -1,23 +1,26 @@
 <div class="container">
   <!-- Espacio para la ilustración -->
-  <!-- <div class="illustration">[Ilustración personas]</div> -->
+  <div class="illustration">
+    <img src="../assets/img/spider-man.png" alt="Illustration.png" />
+  </div>
 
   <h1>¡Te damos la bienvenida a Prueba de sonido!</h1>
 
   <label for="nombre">¿Cómo prefieres que te llamemos?</label>
 
 
-  <input type="text" id="nombre" placeholder="Escribe tu nombre" [value]="name" readonly maxlength="15">
-  <div class="char-counter">0/15 caracteres</div>
-  <button (click)="toggleListening()">Iniciar grabación</button>
+  <input type="text" #campo id="nombre" placeholder="Escribe tu nombre" [value]="name" disabled maxlength="15" />
+  <div class="char-counter" #contador>0/15 caracteres</div>
+  <button (click)="toggleListening()">{{ this.status }}</button>
 
-
-  <!-- <p>Status: {{ status }}</p> -->
+  <!-- 
+  <p>Status: {{ name }}</p>
+  <p>Status: {{ status}}</p>
+ -->
 
 
   <!-- <button (click)="sendToEncrypt()" [disabled]="!name">Enviar y Encriptar</button> -->
-  <!-- 
-  @if(encrypted){
+  <!-- @if(encrypted){
   <div>
     <h3>Texto encriptado:</h3>
     <textarea readonly rows="5" style="width:100%">{{ encrypted }}</textarea>

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { EncryptService } from './encrypt.service';
 
 
@@ -9,50 +9,84 @@ import { EncryptService } from './encrypt.service';
   styleUrl: './app.scss'
 })
 export class App {
+  @ViewChild('campo') campo!: ElementRef;
+  @ViewChild('contador') contador!: ElementRef;
+
   name = "";
+  status = "🎤 Iniciar";
   encrypted = "";
-  status = "Esperando";
   recognition: any;
-  listening: boolean = false;
+  isListening = false; // 👉 control interno
+  longitud: number = 0;
 
-  constructor(private encryptService: EncryptService) { }
+  constructor(private encryptService: EncryptService) {
+    if (typeof window !== "undefined") {
+      const SpeechRecognition =
+        (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+      if (SpeechRecognition) {
+        this.recognition = new SpeechRecognition();
+        this.recognition.lang = "es-ES";
+        this.recognition.interimResults = true;
+        this.recognition.continuous = true;
+
+        this.recognition.onresult = (event: any) => {
+          let transcript = "";
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+          }
+          this.name = transcript.replace(/[^a-zA-Z0-9]/g, "").slice(0, 15);
+          console.log("Transcripción:", this.name);
+          this.campo.nativeElement.value = this.name;
+          this.contador.nativeElement.textContent = `${this.name.length}/15 caracteres`;
 
 
-  ngOnInit(): void {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    this.recognition = new SpeechRecognition();
-    this.recognition.lang = 'es-ES';
-    this.recognition.interimResults = true;   // resultados parciales en tiempo real
-    this.recognition.continuous = true;       // no se detiene al terminar
+        };
 
-    this.recognition.onresult = (event: any) => {
-      let transcript = '';
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        transcript += event.results[i][0].transcript;
+
+        this.recognition.onstart = () => {
+          this.isListening = true;
+
+        };
+
+        this.recognition.onend = () => {
+          this.isListening = false;
+        };
+
+        this.recognition.onerror = (e: any) => {
+          console.error("Error:", e.error);
+          this.status = "Error: " + e.error;
+          this.isListening = false;
+        };
       }
-      // limpiar y limitar
-      transcript = transcript.replace(/[^a-zA-Z0-9]/g, '').slice(0, 15);
-      this.name = transcript;
-    };
-
-    this.recognition.onstart = () => this.listening = true;
-    this.recognition.onend = () => this.listening = false;
-    this.recognition.onerror = (e: any) => console.error('Error:', e.error);
+    }
   }
 
-  toggleListening(): void {
-    if (this.listening) {
+  toggleListening() {
+
+    if (!this.recognition) return;
+
+    if (this.isListening) {
       this.recognition.stop();
+      this.status = "⏹ Detenido";
+      this.sendToEncrypt();
+
     } else {
       this.recognition.start();
+      this.status = "🎤 Escuchando...";
+
+
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.listening) {
-      this.recognition.stop();
-    }
+
+  contadorLetras(palabra: string) {
+    console.log(palabra.length);
+
+    this.longitud = palabra.length;
   }
+
+
 
   sendToEncrypt() {
     if (!this.name) return;
