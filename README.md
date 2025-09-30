@@ -15,7 +15,7 @@ Este proyecto es una prueba técnica que combina **Angular** en el frontend con 
 6. Opcional: desencriptación para validar el resultado. (comentado en el html)
 7. Indicador visual de estado: escuchando, detenido o error. (comentado en el html).
 8. CORS, RxJS para actualizaciones en tiempo real.
-9. Comunicación:** HTTP (`HttpClient` de Angular)  
+9. Comunicación: HTTP (`HttpClient` de Angular)  
 
 
 ---
